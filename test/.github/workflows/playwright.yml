@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Build and starrt services
+  
+    - name: Build and start services
       run: docker-compose up --build -d
+      
     - name: Run Playwright tests
       run: docker-compose run test npx playwright test
