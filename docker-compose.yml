@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+
+  web:
+    context: .
+    build: Dockerfile
+    ports:
+      - "8000:8000"
+  
+  test:
+    context: ./test
+    build: Dockerfile
+  depends_on:
+    - web
