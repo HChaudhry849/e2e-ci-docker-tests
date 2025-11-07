@@ -2,13 +2,21 @@ version: "3.8"
 services:
 
   web:
-    context: .
-    build: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   
   test:
-    context: ./test
-    build: Dockerfile
-  depends_on:
-    - web
+    build:
+      context: ./test
+      dockerfile: Dockerfile
+    depends_on:
+      web:
+        condition: service_healthy
